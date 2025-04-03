@@ -2,6 +2,6 @@
  * @param {any} query
  */
 export async function fetchFactChecks(query) {
-    const response = await fetch(`http://localhost:8080/api/fact-check?q=${query}`);
+    const response = await fetch(`https://v2.legitba.net/api/fact-check?q=${query}`);
     return response.json();
 }

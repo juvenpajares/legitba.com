@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "functions": {
+      "api/fact-check.js": {
+        "memory": 1024,
+        "maxDuration": 10
+      }
+    },
+    "env": {
+      "GOOGLE_FACTCHECK_API_KEY": "AIzaSyBzDPOpXKjTAlTX14iGY-4hU3nG5azFhyw"
+    }
+  }
+  

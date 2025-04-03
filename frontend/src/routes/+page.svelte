@@ -11,7 +11,7 @@
         if (!query.trim()) return;
         loading.set(true);
         try {
-            const response = await axios.get(`http://localhost:8080/api/fact-check?q=${query}`);
+            const response = await axios.get(`https://v2.legitba.net/api/fact-check?q=${query}`);
             results.set(response.data.claims || []);
         } catch (error) {
             console.error("Error fetching fact-check data:", error);
