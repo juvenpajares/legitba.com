@@ -7,17 +7,36 @@
     let results = writable([]);
     let loading = writable(false);
 
-    async function fetchFactChecks() {
+    async function fetchFactChecks(updateUrl = true) {
         if (!query.trim()) return;
         loading.set(true);
         try {
             const response = await axios.get(`https://v2.legitba.net/api/fact-check?q=${query}`);
             results.set(response.data.claims || []);
+            if (updateUrl) {
+                const params = new URLSearchParams({ q: query });
+                history.pushState({}, '', `?${params.toString()}`);
+            }
         } catch (error) {
             console.error("Error fetching fact-check data:", error);
         }
         loading.set(false);
     }
+
+    onMount(() => {
+        const params = new URLSearchParams(window.location.search);
+        query = params.get("q") || "";
+        if (query) {
+            fetchFactChecks(false); // skip pushState here
+        }
+
+        window.addEventListener("popstate", () => {
+            const updatedParams = new URLSearchParams(window.location.search);
+            query = updatedParams.get("q") || "";
+            fetchFactChecks(false); // load results on back/forward
+        });
+    });
+
 </script>
 
 <main class="p-6 bg-gray-100 min-h-screen">
